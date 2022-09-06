@@ -1,12 +1,12 @@
 export default class SelectedLanguage
 {
-    constructor()
+    constructor($target)
     {
         
     }
 
     render()
     {
-        
+
     }
 }

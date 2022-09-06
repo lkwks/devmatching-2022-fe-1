@@ -30,7 +30,7 @@ const request = async url =>
 
 
 const api = {
-  fetchDir: async keyword => 
+  fetchKeyword: async keyword => 
   {
       try
       {
