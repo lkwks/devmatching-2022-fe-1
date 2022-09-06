@@ -27,7 +27,7 @@ class SearchInput
 
     keywordChange()
     {
-        console.log(this.$target)
+        console.log(this.$target.value)
         this.suggestion.keywordChange(this.$target.value)
     }
 }
