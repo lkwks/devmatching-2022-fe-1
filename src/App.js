@@ -21,7 +21,7 @@ class SearchInput
         this.suggestion = suggestion
         this.selectedlanguage = selectedlanguage
         this.$target = $target
-        $target.addEventListener("input", this.keywordChange)
+        $target.addEventListener("input", ()=>{this.keywordChange()})
         //검색어 입력 시 suggestion을 렌더링하는 코드를 실행하는 이벤트 리스너. 검색어 다 지워지면 저절로 suggestion이 가려지도록 코딩할 것.
     }
 
