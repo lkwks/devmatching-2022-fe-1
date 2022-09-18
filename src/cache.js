@@ -1,20 +1,15 @@
 const cache = {
     get(key) {
-        return JSON.parse(sessionStorage.getItem("keywords"))[key];
+        return JSON.parse(sessionStorage.getItem(key));
     },
     set(key, data) {
-        let cacheData = JSON.parse(sessionStorage.getItem("keywords"));
-        cacheData[key] = data;
-        sessionStorage.setItem("keywords", JSON.stringify(cacheData));
+        sessionStorage.setItem(key, JSON.stringify(data));
     },
-    getInit() {
-        const keyword = JSON.parse(sessionStorage.getItem("initkey"));
-        const selected = JSON.parse(sessionStorage.getItem("selected"));
-        return {keyword:keyword, selected:selected};
+    getInit(key) {
+        return JSON.parse(localStorage.getItem(key));
     },
-    setInit(keyword, selected) {
-        sessionStorage.setItem("initkey", JSON.stringify(keyword));
-        sessionStorage.setItem("selected", JSON.stringify(selected));
+    setInit(key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
     },
 };
 
