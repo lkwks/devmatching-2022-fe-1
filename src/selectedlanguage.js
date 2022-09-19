@@ -46,7 +46,7 @@ export default class SelectedLanguage
         else
         {
             const node = document.createElement("li");
-            node.appendChild(document.createTextNode(key));
+            node.appendChild(document.createTextNode(newResult));
             this.$target.childNodes[0].appendChild(node);
         }
     }
