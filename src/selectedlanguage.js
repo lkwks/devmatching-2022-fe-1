@@ -6,14 +6,14 @@ export default class SelectedLanguage
     {
         this.$target = $target;
         this.history = history;
-        this.render();
+        this.render(null);
     }
 
     update(newResult)
     {
         let newHistory = [];
         if (this.history)
-            this.history.forEach((key, idx)=>
+            this.history.forEach((key)=>
             {
                 if (key != newResult && ((idx > 0 && this.history.length == 5)||this.history.length < 5))
                     newHistory.push(key);
@@ -21,19 +21,33 @@ export default class SelectedLanguage
         newHistory.push(newResult);
         this.history = newHistory;
         cache.setInit("history", this.history);
-        this.render();
+        this.render(newResult);
     }
 
-    render()
+    render(newResult)
     {
-        if(this.$target.childNodes && this.$target.childNodes.length > 0) this.$target.childNodes[0].remove();
         if (this.history == [] || this.history == null) return;
 
-        this.$target.appendChild(document.createElement("ul"));
-        this.history.forEach((key) => {
+        if (this.$target.childNodes == null || this.$target.childNodes[0].nodeName != "UL")
+            this.$target.prepend(document.createElement("ul"));
+
+        let removedChild = null;
+        for (key of this.$target.childNodes[0].childNodes)
+        {
+            if (key.textContent == newResult)
+            {
+                removedChild = this.$target.childNodes[0].removeChild(key);
+                break;
+            }
+        }
+
+        if (removedChild)
+            this.$target.childNodes[0].appendChild(removedChild);
+        else
+        {
             const node = document.createElement("li");
             node.appendChild(document.createTextNode(key));
             this.$target.childNodes[0].appendChild(node);
-        });
+        }
     }
 }
