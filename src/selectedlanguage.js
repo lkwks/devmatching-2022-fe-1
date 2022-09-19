@@ -28,36 +28,36 @@ export default class SelectedLanguage
     {
         if (this.history == [] || this.history == null) return;
 
-        if (this.$target.childNodes == null || this.$target.childNodes[0].nodeName != "UL")
+        if (this.$target.childNodes == null || this.$target.querySelectorAll("ul").length == 0)
             this.$target.prepend(document.createElement("ul"));
 
-        let recentlySearched = null;
-        for (const key of this.$target.childNodes[0].childNodes)
+        const ulNode = this.$target.querySelector("ul");
+        let recentlySearched = false;
+        for (const node of ulNode.childNodes)
         {
-            if (key.textContent == newResult)
+            if (node.textContent == newResult)
             {
-                recentlySearched = key;
+                ulNode.appendChild(node);
+                recentlySearched = true;
                 break;
             }
         }
 
-        if (recentlySearched)
-            this.$target.childNodes[0].appendChild(recentlySearched);
-        else
+        if (!recentlySearched)
         {
-            if (this.$target.childNodes[0].childNodes.length > 0)
-                this.$target.childNodes[0].childNodes[0].remove();
+            if (ulNode.childNodes.length > 0)
+                ulNode.childNodes[0].remove();
             if (newResult)
             {
                 const node = document.createElement("li");
                 node.appendChild(document.createTextNode(newResult));
-                this.$target.childNodes[0].appendChild(node);
+                ulNode.appendChild(node);
             }
             else
                 this.history.forEach((key) => {
                     const node = document.createElement("li");
                     node.appendChild(document.createTextNode(key));
-                    this.$target.childNodes[0].appendChild(node);    
+                    ulNode.appendChild(node);    
                 });
         }
     }
