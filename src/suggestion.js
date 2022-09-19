@@ -38,19 +38,12 @@ export default class Suggestion
     {
         if (key == "Enter")
             this.submit();
-        if (key == "ArrowUp")
+        if (key == "ArrowUp" || key == "ArrowDown")
         {
-            this.$target.childNodes[0].childNodes[this.selected].classList.remove("Suggestion__item--selected");
-            this.selected = (this.selected + this.suggestionList.length - 1) % this.suggestionList.length;
-            cache.setInit("selected", this.selected);
-            this.$target.childNodes[0].childNodes[this.selected].classList.add("Suggestion__item--selected");
-        }
-        if (key == "ArrowDown")
-        {
-            this.$target.childNodes[0].childNodes[this.selected].classList.remove("Suggestion__item--selected");
-            this.selected = (this.selected + 1) % this.suggestionList.length;
-            cache.setInit("selected", this.selected);
-            this.$target.childNodes[0].childNodes[this.selected].classList.add("Suggestion__item--selected");
+            this.$target.querySelector(`ul > li:nth-child(${this.selected+1})`).classList.remove("Suggestion__item--selected");
+            this.selected = key=="ArrowUp" ? (this.selected + this.suggestionList.length - 1) : this.selected + 1;
+            this.selected = this.selected % this.suggestionList.length;
+            this.$target.querySelector(`ul > li:nth-child(${this.selected+1})`).classList.add("Suggestion__item--selected");
         }
     }
 
@@ -69,7 +62,9 @@ export default class Suggestion
 
     render()
     {
-        if (this.$target.childNodes && this.$target.childNodes.length > 0) this.$target.childNodes[0].remove();
+        if (this.$target.childNodes)
+            this.$target.querySelector("ul").remove();
+
         if (this.suggestionList != null && this.suggestionList.length > 0)
         {
             this.$target.appendChild(document.createElement("ul"));
@@ -94,7 +89,7 @@ export default class Suggestion
                 if (idx == this.selected)
                     node.classList.add("Suggestion__item--selected");
 
-                this.$target.childNodes[0].appendChild(node);
+                this.$target.querySelector("ul").appendChild(node);
             });
             this.$target.style.display = 'block';
         }
