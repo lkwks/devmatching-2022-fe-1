@@ -13,7 +13,7 @@ export default class SelectedLanguage
     {
         let newHistory = [];
         if (this.history)
-            this.history.forEach((key)=>
+            this.history.forEach((key, idx)=>
             {
                 if (key != newResult && ((idx > 0 && this.history.length == 5)||this.history.length < 5))
                     newHistory.push(key);
