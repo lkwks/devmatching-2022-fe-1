@@ -31,20 +31,22 @@ export default class SelectedLanguage
         if (this.$target.childNodes == null || this.$target.childNodes[0].nodeName != "UL")
             this.$target.prepend(document.createElement("ul"));
 
-        let removedChild = null;
+        let recentlySearched = null;
         for (const key of this.$target.childNodes[0].childNodes)
         {
             if (key.textContent == newResult)
             {
-                removedChild = this.$target.childNodes[0].removeChild(key);
+                recentlySearched = key;
                 break;
             }
         }
 
-        if (removedChild)
-            this.$target.childNodes[0].appendChild(removedChild);
+        if (recentlySearched)
+            this.$target.childNodes[0].appendChild(recentlySearched);
         else
         {
+            if (this.$target.childNodes[0].childNodes.length > 0)
+                this.$target.childNodes[0].childNodes[0].remove();
             if (newResult)
             {
                 const node = document.createElement("li");
