@@ -45,9 +45,18 @@ export default class SelectedLanguage
             this.$target.childNodes[0].appendChild(removedChild);
         else
         {
-            const node = document.createElement("li");
-            node.appendChild(document.createTextNode(newResult));
-            this.$target.childNodes[0].appendChild(node);
+            if (newResult)
+            {
+                const node = document.createElement("li");
+                node.appendChild(document.createTextNode(newResult));
+                this.$target.childNodes[0].appendChild(node);
+            }
+            else
+                this.history.forEach((key) => {
+                    const node = document.createElement("li");
+                    node.appendChild(document.createTextNode(key));
+                    this.$target.childNodes[0].appendChild(node);    
+                });
         }
     }
 }
