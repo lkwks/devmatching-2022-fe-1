@@ -32,6 +32,7 @@ export default class SelectedLanguage
             this.$target.prepend(document.createElement("ul"));
 
         let removedChild = null;
+        console.log(this.$target.childNodes[0].childNodes)
         for (key of this.$target.childNodes[0].childNodes)
         {
             if (key.textContent == newResult)
